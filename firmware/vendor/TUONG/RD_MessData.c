@@ -11,7 +11,6 @@
 #include "../common/lighting_model.h"
 #include "../mesh/RD_Lib.h"
 #include "RD_Type_Device.h"
-#include "MS58.h"
 
 #include "../common/generic_model.h"
 
@@ -133,7 +132,8 @@ void Remote_Control(u8 *par, int len,u8 need_rsp, u16 addr_rsp)
 	{
 		u16 light_set = 0;
 		u16 light_cur = light_g_level_present_get_u16(0, 0);
-		u16 cct_cur = light_ctl_temp_prensent_get(0);
+//		u16 cct_cur = light_ctl_temp_prensent_get(0);
+		u16 cct_cur = 0;
 		if(up_down == REMOTE_CONTROL_UP)
 		{
 			light_set = ((0xffff - light_cur ) > (delta * 0xffff ) / 100) ?  (light_cur + (delta * 0xffff ) / 100) : 0xffff;
@@ -170,7 +170,7 @@ void Answer_Info(u8 *par, int len, u16 addr_rsp)
 	u8 buff[8] = {0};
 	u8 stt = light_g_onoff_present_get(0);
 	u16 dim = light_g_level_present_get_u16(0, 0);
-	u16 cct = light_ctl_temp_prensent_get(0);
+	u16 cct = 0;
 	buff[0] = RD_HC_REQUEST_INFO;
 	buff[1] = stt << 4 | 0x01;
 	buff[2] = dim & 0xff;
@@ -214,9 +214,10 @@ int RD_mesh_cmd_sig_lightness_linear_set(u8 *par, int par_len, mesh_cb_fun_par_t
 	u8 Header = par[0];
 	u8 need_rsp = (cb_par->op_rsp != STATUS_NONE) ? 1: 0;
 
+	RD_LOG("header: %d\n",Header);
 	switch(Header){
 		case RD_REMOTE_CONTROL:
-//			Remote_Control(par,par_len,need_rsp,cb_par ->adr_src);
+			Remote_Control(par,par_len,need_rsp,cb_par ->adr_src);
 			break;
 		case RD_HC_REQUEST_INFO:
 			Answer_Info(par,par_len,cb_par ->adr_src);

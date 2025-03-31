@@ -637,6 +637,11 @@ int factory_reset(){
  * @return      none
  * @note        
  */
+
+extern void RD_Clean_Flash_Type(void);
+extern void Flash_Clean_Secure();
+extern void Flash_Clean_K9B(void);
+
 void kick_out(int led_en){
 #if AUDIO_MESH_EN
 	vd_cmd_mic_tx_req(ele_adr_primary); // just to clear play buffer of itself(no sending RF packet), so that no noise during 6 seconds of led flash.
@@ -661,13 +666,9 @@ void kick_out(int led_en){
 #else
 	factory_reset();
 
-	flash_save_secure.flag_process_aes = NO_MESS;  // RD_EDIT reset flag
-	flash_save_secure.flag_check_mess = 0;
-	flash_erase_sector(RD_PROVISION_FLASH_AREA);
-	flash_write_page(RD_PROVISION_FLASH_AREA, RD_SIZE_FLASH_SECURE, (uint8_t *) (&flash_save_secure.Used[0]));
-
-	RD_Flash_Reset_Config_MS58(); // reset rada
-	RD_Write_Flash_MS58();
+	RD_Clean_Flash_Type();
+	Flash_Clean_Secure();
+	Flash_Clean_K9B();
 
     #if !WIN32
     if(led_en){

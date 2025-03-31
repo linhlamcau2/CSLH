@@ -7,7 +7,6 @@
 
 #include "RD_Type_Device.h"
 #include "RD_MessData.h"
-#include "MS58.h"
 #include "../mesh/RD_Lib.h"
 
 
@@ -57,91 +56,6 @@ void RD_Flash_Type_Init(void){
 		RD_GATEWAY_ADDR = Flash_Save_Type_Val.GWID[1] << 8 | Flash_Save_Type_Val.GWID[0];
 
 	}
-}
-
-void Read_Flash_MS58(void){
-	flash_read_page(RD_MS58_FLASH_AREA, RD_FLASH_SIZE_MS58, (unsigned char *)(&Flash_Save_MS58.user[0]));
-}
-
-void RD_Write_Flash_MS58(void){
-	flash_erase_sector(RD_MS58_FLASH_AREA);
-	flash_write_page(RD_MS58_FLASH_AREA, RD_FLASH_SIZE_MS58, (unsigned char *)(&Flash_Save_MS58.user[0]));
-}
-
-void RD_Flash_Reset_Config_MS58(void){
-	Flash_Save_MS58.mode = AUTO;
-	Flash_Save_MS58.start_status = KEEP_STATUS;
-	Flash_Save_MS58.lightness_max = 0xffff;
-	Flash_Save_MS58.lightness_min = 0x4cc2;
-	Flash_Save_MS58.parMS58.gain = 0x33;
-	Flash_Save_MS58.parMS58.delta[0] = 0x00;
-	Flash_Save_MS58.parMS58.delta[1] = 0x14;
-	Flash_Save_MS58.parMS58.lot[0] = 0x00;
-	Flash_Save_MS58.parMS58.lot[1] = 0x00;
-	Flash_Save_MS58.parMS58.lot[2] = 0x75;  //0x7530: 30000 ms
-	Flash_Save_MS58.parMS58.lot[3] = 0x30;
-	Flash_Save_MS58.Call_Group.flag_on_off_group = 0;
-	Flash_Save_MS58.Call_Group.ID_Group = 0x0000;
-	Flash_Save_MS58.Call_Scene.on_off[0] = 0;
-	Flash_Save_MS58.Call_Scene.on_off[1] = 0;
-}
-void RD_Flash_Clean_MS58(void){
-	Flash_Save_MS58.user[0] = RD_CHECK_FLASH_H;
-	Flash_Save_MS58.user[1] = RD_CHECK_FLASH_L;
-	Flash_Save_MS58.user[2] = RD_CHECK_FLASH_H;
-	Flash_Save_MS58.user[3] = RD_CHECK_FLASH_L;
-
-	Flash_Save_MS58.mode = AUTO;
-	Flash_Save_MS58.start_status = KEEP_STATUS;
-	Flash_Save_MS58.lightness_max = 0xffff;
-	Flash_Save_MS58.lightness_min = 0x4cc2;
-	Flash_Save_MS58.parMS58.gain = 0x33;
-	Flash_Save_MS58.parMS58.delta[0] = 0x00;
-	Flash_Save_MS58.parMS58.delta[1] = 0x14;
-	Flash_Save_MS58.parMS58.lot[0] = 0x00;
-	Flash_Save_MS58.parMS58.lot[1] = 0x00;
-	Flash_Save_MS58.parMS58.lot[2] = 0x75;  //7D0: 2000 ms
-	Flash_Save_MS58.parMS58.lot[3] = 0x30;
-	Flash_Save_MS58.Call_Scene.on_off[0] = 0;
-	Flash_Save_MS58.Call_Scene.on_off[1] = 0;
-	Flash_Save_MS58.Call_Scene.ID_Scene[0] = 0x0000;
-	Flash_Save_MS58.Call_Scene.ID_Scene[1] = 0x0000;
-	Flash_Save_MS58.Call_Group.flag_on_off_group = 0;
-	Flash_Save_MS58.Call_Group.ID_Group = 0x0000;
-
-	flash_erase_sector(RD_MS58_FLASH_AREA);
-	flash_write_page(RD_MS58_FLASH_AREA, RD_FLASH_SIZE_MS58, (unsigned char *)(&Flash_Save_MS58.user[0]));
-}
-
-void RD_Flash_MS58_Init(void){
-	Read_Flash_MS58();
-	if(Flash_Save_MS58.user[0] != RD_CHECK_FLASH_H && Flash_Save_MS58.user[1] != RD_CHECK_FLASH_L &&
-	   Flash_Save_MS58.user[2] != RD_CHECK_FLASH_H && Flash_Save_MS58.user[3] != RD_CHECK_FLASH_L){
-		RD_Flash_Clean_MS58();
-	}
-	RD_Init_Config_MS58();
-#if RD_LOG_UART
-	log_par_flash_ms58();
-#endif
-}
-
-void RD_Check_Startup_Rada(void){
-	switch(Flash_Save_MS58.start_status){
-	case MANUAL:
-		Flash_Save_MS58.mode = MANUAL;
-		break;
-	case AUTO:
-		Flash_Save_MS58.mode = AUTO;
-		break;
-	default:
-		break;
-	}
-}
-void Init_Data_Rada(void){
-	RD_Flash_MS58_Init();
-	RD_Check_Startup_Rada();
-	RD_Rsp_Powerup(RD_GATEWAY_ADDR, Flash_Save_MS58.mode); // T_NOTE: rsp mode rada
-	time_start_loop = clock_time_ms();
 }
 
 void RD_Flash_Clean_Training(void){

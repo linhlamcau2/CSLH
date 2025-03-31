@@ -52,7 +52,7 @@
 
 #include "../TUONG/RD_MessData.h"
 #include "../TUONG/RD_Type_Device.h"
-#include "../TUONG/MS58.h"
+
 /** @addtogroup Mesh_Common
   * @{
   */
@@ -1713,8 +1713,8 @@ const mesh_cmd_sig_func_t mesh_cmd_sig_func[] = {
 	CMD_YS_STR(LIGHTNESS_STATUS, 1, SIG_MD_LIGHTNESS_S, SIG_MD_LIGHTNESS_C, mesh_cmd_sig_lightness_status, STATUS_NONE),
 	#if CMD_LINEAR_EN
 	CMD_NO_STR(LIGHTNESS_LINEAR_GET, 0, SIG_MD_LIGHTNESS_C, SIG_MD_LIGHTNESS_S, mesh_cmd_sig_lightness_linear_get, LIGHTNESS_LINEAR_STATUS),
-	CMD_NO_STR(LIGHTNESS_LINEAR_SET, 0, SIG_MD_LIGHTNESS_C, SIG_MD_LIGHTNESS_S, mesh_cmd_sig_lightness_linear_set, LIGHTNESS_LINEAR_STATUS), //RD_EDIT cb_func
-	CMD_NO_STR(LIGHTNESS_LINEAR_SET_NOACK, 0, SIG_MD_LIGHTNESS_C, SIG_MD_LIGHTNESS_S, mesh_cmd_sig_lightness_linear_set, STATUS_NONE),
+	CMD_NO_STR(LIGHTNESS_LINEAR_SET, 0, SIG_MD_LIGHTNESS_C, SIG_MD_LIGHTNESS_S, RD_mesh_cmd_sig_lightness_linear_set, LIGHTNESS_LINEAR_STATUS), //RD_EDIT cb_func
+	CMD_NO_STR(LIGHTNESS_LINEAR_SET_NOACK, 0, SIG_MD_LIGHTNESS_C, SIG_MD_LIGHTNESS_S, RD_mesh_cmd_sig_lightness_linear_set, STATUS_NONE),
 	CMD_NO_STR(LIGHTNESS_LINEAR_STATUS, 1, SIG_MD_LIGHTNESS_S, SIG_MD_LIGHTNESS_C, mesh_cmd_sig_lightness_linear_status, STATUS_NONE),
 	#endif
 	CMD_NO_STR(LIGHTNESS_LAST_GET, 0, SIG_MD_LIGHTNESS_C, SIG_MD_LIGHTNESS_S, mesh_cmd_sig_lightness_last_get, LIGHTNESS_LAST_STATUS),

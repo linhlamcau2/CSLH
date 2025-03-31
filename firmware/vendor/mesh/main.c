@@ -38,7 +38,7 @@
 #include "../TUONG/RD_Scene.h"
 #include "../TUONG/RD_Training.h"
 #include "../TUONG/RD_Type_Device.h"
-#include "../TUONG/MS58.h"
+
 
 //define BIT_CHECK BIT
 
@@ -245,10 +245,8 @@ _attribute_ram_code_ int main (void)    //must run in ramcode
 		uart_dma_enable(1,0);
 
 		Init_Flash_K9B();
-		//RD_config_pin_MS58();
 		Init_Flash_Secure();
 		RD_Flash_Type_Init();
-		//Init_Data_Rada();
 		Init_Flash_Training();
 	}
 
@@ -265,7 +263,6 @@ _attribute_ram_code_ int main (void)    //must run in ramcode
 			Start_Training();
 			RD_Training();
 		}else{
-//			loop_rada();
 			check_done_provision();
 			RD_Kickout_All();
 			RD_K9B_TimeOutScan_OnOff();

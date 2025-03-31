@@ -41,7 +41,7 @@
 
 #include "../mesh/RD_Lib.h"
 #include "../TUONG/RD_Type_Device.h"
-#include "../TUONG/MS58.h"
+
 
 /** @addtogroup Mesh_Common
   * @{

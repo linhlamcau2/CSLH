@@ -4,7 +4,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../vendor/TUONG/MS58.c \
 ../vendor/TUONG/RD_MessData.c \
 ../vendor/TUONG/RD_Scene.c \
 ../vendor/TUONG/RD_Secure.c \
@@ -12,7 +11,6 @@ C_SRCS += \
 ../vendor/TUONG/RD_Type_Device.c 
 
 OBJS += \
-./vendor/TUONG/MS58.o \
 ./vendor/TUONG/RD_MessData.o \
 ./vendor/TUONG/RD_Scene.o \
 ./vendor/TUONG/RD_Secure.o \

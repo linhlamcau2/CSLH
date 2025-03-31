@@ -84,11 +84,6 @@ extern Flash_Save_Training flash_save_training;
 void RD_Flash_Save_GW(uint16_t GW_ADDR);
 void RD_Flash_Save_Type(uint8_t MainType, uint8_t Feature, uint8_t Name);
 void RD_Flash_Type_Init(void);
-void RD_Flash_MS58_Init(void);
-void Init_Data_Rada(void);
-void RD_Write_Flash_MS58(void);
-void RD_Flash_Reset_Config_MS58(void);
-void RD_Flash_Clean_MS58(void);
 void Init_Flash_Training(void);
 void RD_Write_Flash_Training(void);
 

@@ -64,7 +64,7 @@ void check_done_provision(void) {
 
 		if (flash_save_secure.flag_process_aes == ENCRYPT_ERR ) { // ma hoa sai
 			vrs_time_err_aes = clock_time_s();
-			RD_LOG("sai ma hoa r \n");
+//			RD_LOG("sai ma hoa r \n");
 		} else if (flash_save_secure.flag_process_aes == NO_MESS ) { // ko co ban tin ma hoa
 			vrs_time_bindall = clock_time_s();
 		} else if (flash_save_secure.flag_process_aes == ENCRYPT_OK ) { // ma hoa dung
